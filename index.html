@@ -10,7 +10,7 @@
   :root {
     --plum: #4a1460;
     --emerald: #1a5c3a;
-    --teal: #1a7a5e;
+    --teal: #1a8c4e;
     --gold: #e8c97a;
     --gold-light: #e8c97a;
     --grey: #c8c4c0;
@@ -24,11 +24,14 @@
 
   /* CURSOR */
   .cursor {
-    width:28px;height:28px;position:fixed;pointer-events:none;z-index:9999;
+    width:24px;height:24px;position:fixed;pointer-events:none;z-index:9999;
     transform:translate(-50%,-50%);
-    animation:cursor-spin 6s linear infinite;
+    animation:leaf-sway 3s ease-in-out infinite;
   }
-  @keyframes cursor-spin { from{transform:translate(-50%,-50%) rotate(0deg)} to{transform:translate(-50%,-50%) rotate(360deg)} }
+  @keyframes leaf-sway {
+    0%,100% { transform:translate(-50%,-50%) rotate(-8deg); }
+    50%      { transform:translate(-50%,-50%) rotate(8deg); }
+  }
 
   /* PARTICLES */
   .particle { position:fixed;pointer-events:none;z-index:1;animation:float-up linear infinite;opacity:0; }
@@ -71,7 +74,7 @@
 
   /* ─── INVITE ─── */
   .hero { min-height:calc(100vh - 132px);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:60px 20px 80px; }
-  .hero-bg { position:absolute;inset:0;background:radial-gradient(ellipse at 15% 50%,rgba(100,20,140,0.55) 0%,transparent 55%),radial-gradient(ellipse at 85% 25%,rgba(20,140,100,0.45) 0%,transparent 50%),radial-gradient(ellipse at 50% 85%,rgba(26,160,130,0.3) 0%,transparent 50%),radial-gradient(ellipse at 60% 10%,rgba(80,180,160,0.2) 0%,transparent 40%),var(--midnight); }
+  .hero-bg { position:absolute;inset:0;background:radial-gradient(ellipse at 15% 50%,rgba(100,20,140,0.55) 0%,transparent 55%),radial-gradient(ellipse at 85% 25%,rgba(20,160,70,0.45) 0%,transparent 50%),radial-gradient(ellipse at 50% 85%,rgba(26,160,70,0.3) 0%,transparent 50%),radial-gradient(ellipse at 60% 10%,rgba(60,180,90,0.2) 0%,transparent 40%),var(--midnight); }
   .lantern-glow { position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(232,201,122,0.15) 0%,transparent 70%);animation:pulse-glow 3s ease-in-out infinite;pointer-events:none; }
   .hero-eyebrow { font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.4em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem;position:relative;z-index:2;animation:fade-up 1.5s ease 0.3s both; }
   .hero-occasion { font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(0.95rem,2.5vw,1.2rem);color:rgba(245,240,232,0.5);margin-bottom:1rem;position:relative;z-index:2;animation:fade-up 1.5s ease 0.5s both; }
@@ -139,11 +142,11 @@
   .quiz-choice { display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;border:1px solid rgba(232,201,122,0.12);background:transparent;cursor:none;color:var(--cream);font-family:'IM Fell English',serif;font-style:italic;font-size:1rem;text-align:left;transition:border-color 0.25s ease,background 0.25s ease;position:relative;overflow:hidden;width:100%; }
   .quiz-choice:hover:not(:disabled) { border-color:rgba(232,201,122,0.4);background:rgba(232,201,122,0.04); }
   .quiz-choice-letter { font-family:'Cinzel',serif;font-style:normal;font-size:0.55rem;letter-spacing:0.3em;color:rgba(232,201,122,0.45);min-width:1.2rem;transition:color 0.25s ease; }
-  .quiz-choice.correct { border-color:rgba(26,122,94,0.7);background:rgba(26,122,94,0.08); }
+  .quiz-choice.correct { border-color:rgba(26,140,78,0.7);background:rgba(26,140,78,0.08); }
   .quiz-choice.correct .quiz-choice-letter { color:var(--teal); }
   .quiz-choice.wrong { border-color:rgba(180,60,60,0.6);background:rgba(180,60,60,0.07); }
   .quiz-choice.wrong .quiz-choice-letter { color:#c06060; }
-  .quiz-choice.reveal-correct { border-color:rgba(26,122,94,0.4);background:rgba(26,122,94,0.04); }
+  .quiz-choice.reveal-correct { border-color:rgba(26,140,78,0.4);background:rgba(26,140,78,0.04); }
   .quiz-choice:disabled { cursor:not-allowed; }
 
   /* Feedback */
@@ -188,7 +191,7 @@
   .tradition-card::before { content:'';position:absolute;inset:0;z-index:0; }
   .tradition-card.old::before    { background:linear-gradient(160deg,#1a0a2e,#0d0d12);border:1px solid rgba(232,201,122,0.2); }
   .tradition-card.new::before    { background:linear-gradient(160deg,#0a1520,#0d1a1e);border:1px solid rgba(212,234,240,0.2); }
-  .tradition-card.borrowed::before { background:linear-gradient(160deg,#0a1a0f,#0d1510);border:1px solid rgba(26,122,94,0.25); }
+  .tradition-card.borrowed::before { background:linear-gradient(160deg,#0a1a0f,#0d1510);border:1px solid rgba(26,140,78,0.25); }
   .tradition-card.blue::before   { background:linear-gradient(160deg,#0a0a1f,#0d0d18);border:1px solid rgba(100,100,200,0.2); }
   .tradition-content { position:relative;z-index:1; }
   .tradition-marker { font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.5em;text-transform:uppercase;margin-bottom:0.75rem;display:block; }
@@ -252,17 +255,16 @@
 <body>
 
 <div class="cursor" id="cursor">
-  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- four-pointed star / compass rose -->
-    <path d="M14 1 L15.5 12.5 L27 14 L15.5 15.5 L14 27 L12.5 15.5 L1 14 L12.5 12.5 Z" fill="none" stroke="#e8c97a" stroke-width="1" stroke-linejoin="round"/>
-    <circle cx="14" cy="14" r="1.5" fill="#e8c97a" opacity="0.9"/>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2 C6 2 2 8 2 14 C2 18 5 21 9 22 C9 22 8 16 12 12 C16 16 15 22 15 22 C19 21 22 18 22 14 C22 8 18 2 12 2 Z" fill="rgba(26,140,78,0.7)" stroke="#e8c97a" stroke-width="0.8"/>
+    <line x1="12" y1="22" x2="12" y2="12" stroke="#e8c97a" stroke-width="0.6" opacity="0.6"/>
   </svg>
 </div>
 
 <div class="orb" style="width:600px;height:600px;background:rgba(100,20,140,0.22);top:5%;left:-15%;animation-duration:12s;"></div>
-<div class="orb" style="width:500px;height:500px;background:rgba(20,140,100,0.18);top:50%;right:-10%;animation-duration:15s;animation-delay:-5s;"></div>
-<div class="orb" style="width:350px;height:350px;background:rgba(26,160,140,0.15);top:30%;left:40%;animation-duration:10s;animation-delay:-3s;"></div>
-<div class="orb" style="width:250px;height:250px;background:rgba(80,200,180,0.1);top:70%;left:20%;animation-duration:18s;animation-delay:-8s;"></div>
+<div class="orb" style="width:500px;height:500px;background:rgba(20,160,70,0.18);top:50%;right:-10%;animation-duration:15s;animation-delay:-5s;"></div>
+<div class="orb" style="width:350px;height:350px;background:rgba(26,160,70,0.15);top:30%;left:40%;animation-duration:10s;animation-delay:-3s;"></div>
+<div class="orb" style="width:250px;height:250px;background:rgba(60,180,90,0.1);top:70%;left:20%;animation-duration:18s;animation-delay:-8s;"></div>
 
 <!-- FIXED SPOTIFY BAR -->
 <div class="spotify-bar">
