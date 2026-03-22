@@ -23,8 +23,12 @@
   body { background:var(--midnight); color:var(--cream); font-family:'Cormorant Garamond',serif; overflow-x:hidden; cursor:none; }
 
   /* CURSOR */
-  .cursor { width:12px;height:12px;border:1px solid var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%); }
-  .cursor-trail { width:4px;height:4px;background:var(--gold-light);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0.5;transition:all 0.4s ease; }
+  .cursor {
+    width:28px;height:28px;position:fixed;pointer-events:none;z-index:9999;
+    transform:translate(-50%,-50%);
+    animation:cursor-spin 6s linear infinite;
+  }
+  @keyframes cursor-spin { from{transform:translate(-50%,-50%) rotate(0deg)} to{transform:translate(-50%,-50%) rotate(360deg)} }
 
   /* PARTICLES */
   .particle { position:fixed;pointer-events:none;z-index:1;animation:float-up linear infinite;opacity:0; }
@@ -225,8 +229,13 @@
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-trail" id="cursorTrail"></div>
+<div class="cursor" id="cursor">
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- four-pointed star / compass rose -->
+    <path d="M14 1 L15.5 12.5 L27 14 L15.5 15.5 L14 27 L12.5 15.5 L1 14 L12.5 12.5 Z" fill="none" stroke="#e8c97a" stroke-width="1" stroke-linejoin="round"/>
+    <circle cx="14" cy="14" r="1.5" fill="#e8c97a" opacity="0.9"/>
+  </svg>
+</div>
 
 <div class="orb" style="width:600px;height:600px;background:rgba(100,20,140,0.22);top:5%;left:-15%;animation-duration:12s;"></div>
 <div class="orb" style="width:500px;height:500px;background:rgba(20,140,100,0.18);top:50%;right:-10%;animation-duration:15s;animation-delay:-5s;"></div>
@@ -371,8 +380,8 @@
         <div class="tradition-content">
           <span class="tradition-glyph" style="color:#9999dd;">&#127769;</span>
           <span class="tradition-marker">Something Blue</span>
-          <p class="tradition-title">Hidden where<br>only she will know.</p>
-          <p class="tradition-desc">The palette holds no blue &mdash; so blue goes somewhere private. Not every layer is for the room to see.</p>
+          <p class="tradition-title">Roses are red, violets are blue</p>
+          <p class="tradition-desc">the pallette only has purple so I guess that'll do.</p>
         </div>
       </div>
     </div>
@@ -458,10 +467,10 @@
 
   // CURSOR
   const cursor = document.getElementById('cursor');
-  const trail  = document.getElementById('cursorTrail');
-  let mx=0,my=0,tx=0,ty=0;
-  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
-  (function loop(){ tx+=(mx-tx)*0.12; ty+=(my-ty)*0.12; trail.style.left=tx+'px'; trail.style.top=ty+'px'; requestAnimationFrame(loop); })();
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top  = e.clientY + 'px';
+  });
 
   // ── TRIVIA QUIZ ──
   const QUESTIONS = [
