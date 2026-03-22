@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brei & Houston &mdash; December 5th</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;500&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --plum: #4a1460;
+    --emerald: #1a5c3a;
+    --teal: #1a7a5e;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --grey: #c8c4c0;
+    --cream: #f5f0e8;
+    --midnight: #080810;
+    --opalite: #d4eaf0;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--midnight); color:var(--cream); font-family:'Cormorant Garamond',serif; overflow-x:hidden; cursor:none; }
+
+  /* CURSOR */
+  .cursor { width:12px;height:12px;border:1px solid var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%); }
+  .cursor-trail { width:4px;height:4px;background:var(--gold-light);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0.5;transition:all 0.4s ease; }
+
+  /* PARTICLES */
+  .particle { position:fixed;pointer-events:none;z-index:1;animation:float-up linear infinite;opacity:0; }
+  @keyframes float-up {
+    0%   { transform:translateY(100vh) rotate(0deg);   opacity:0; }
+    10%  { opacity:0.6; }
+    90%  { opacity:0.3; }
+    100% { transform:translateY(-10vh) rotate(360deg); opacity:0; }
+  }
+
+  /* ORBS */
+  .orb { position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(80px);animation:orb-drift ease-in-out infinite; }
+  @keyframes orb-drift { 0%,100%{transform:translate(0,0)} 33%{transform:translate(30px,-20px)} 66%{transform:translate(-20px,30px)} }
+
+  /* ANIMATIONS */
+  @keyframes fade-up   { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fade-in   { from{opacity:0} to{opacity:1} }
+  @keyframes shimmer   { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+  @keyframes pulse-glow{ 0%,100%{transform:scale(1);opacity:0.6} 50%{transform:scale(1.2);opacity:1} }
+  @keyframes flicker   { 0%,100%{opacity:1;transform:scale(1) rotate(-1deg)} 25%{opacity:0.8;transform:scale(0.95) rotate(1deg)} 50%{opacity:1;transform:scale(1.02) rotate(-0.5deg)} 75%{opacity:0.9;transform:scale(0.98) rotate(1.5deg)} }
+  @keyframes scroll-drop { 0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top} 51%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom} }
+
+  /* TAB NAV */
+  .tab-nav { position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:center;background:rgba(8,8,16,0.88);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,168,76,0.12); }
+  .tab-nav-inner { display:flex;overflow-x:auto;scrollbar-width:none; }
+  .tab-nav-inner::-webkit-scrollbar { display:none; }
+  .tab-btn { font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(201,168,76,0.4);background:none;border:none;cursor:none;padding:1.1rem 1.4rem;position:relative;white-space:nowrap;transition:color 0.3s ease; }
+  .tab-btn::after { content:'';position:absolute;bottom:0;left:20%;right:20%;height:1px;background:var(--gold);transform:scaleX(0);transition:transform 0.3s ease; }
+  .tab-btn:hover { color:rgba(201,168,76,0.7); }
+  .tab-btn.active { color:var(--gold); }
+  .tab-btn.active::after { transform:scaleX(1); }
+
+  /* PANELS */
+  .tab-panel { display:none;min-height:100vh;padding-top:52px; }
+  .tab-panel.active { display:block; }
+
+  /* ─── INVITE ─── */
+  .hero { min-height:calc(100vh - 52px);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:60px 20px 80px; }
+  .hero-bg { position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(74,20,96,0.4) 0%,transparent 60%),radial-gradient(ellipse at 80% 30%,rgba(26,92,58,0.3) 0%,transparent 50%),radial-gradient(ellipse at 50% 80%,rgba(26,122,94,0.2) 0%,transparent 50%),var(--midnight); }
+  .lantern-glow { position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,0.15) 0%,transparent 70%);animation:pulse-glow 3s ease-in-out infinite;pointer-events:none; }
+  .hero-eyebrow { font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.4em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem;position:relative;z-index:2;animation:fade-up 1.5s ease 0.3s both; }
+  .hero-occasion { font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(0.95rem,2.5vw,1.2rem);color:rgba(245,240,232,0.5);margin-bottom:1rem;position:relative;z-index:2;animation:fade-up 1.5s ease 0.5s both; }
+  .hero-title { font-family:'Cinzel',serif;font-size:clamp(1.5rem,4.5vw,3.5rem);font-weight:400;text-align:center;line-height:1.1;position:relative;z-index:2;margin-bottom:0.5rem;animation:fade-up 2s ease 0.7s both; }
+  .hero-title .name { display:block;background:linear-gradient(135deg,var(--gold-light),var(--gold),#a07830,var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200% 200%;animation:shimmer 4s ease infinite 2s; }
+  .hero-title .ampersand { font-family:'IM Fell English',serif;font-style:italic;font-size:0.55em;color:var(--teal);-webkit-text-fill-color:var(--teal);display:block;margin:0.1em 0; }
+  .candle-flame { display:inline-block;animation:flicker 2s ease-in-out infinite;transform-origin:bottom center; }
+
+  /* Countdown */
+  .countdown-wrap { display:flex;align-items:center;gap:1.5rem;margin:2.5rem 0 0.5rem;position:relative;z-index:2;flex-wrap:wrap;justify-content:center;animation:fade-up 2s ease 1.1s both; }
+  .countdown-block { display:flex;flex-direction:column;align-items:center;gap:0.3rem; }
+  .countdown-num { font-family:'Cinzel',serif;font-size:clamp(2rem,6vw,4rem);font-weight:400;color:var(--gold-light);line-height:1;min-width:2ch;text-align:center;text-shadow:0 0 30px rgba(201,168,76,0.3); }
+  .countdown-label { font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.35em;color:rgba(201,168,76,0.5);text-transform:uppercase; }
+  .countdown-sep { font-size:2rem;color:rgba(201,168,76,0.25);line-height:1;padding-bottom:1.2rem;align-self:flex-end; }
+  .countdown-until { font-family:'IM Fell English',serif;font-style:italic;font-size:1rem;color:rgba(245,240,232,0.45);text-align:center;position:relative;z-index:2;margin-bottom:0.5rem;animation:fade-up 2s ease 1.3s both; }
+  .countdown-until em { color:rgba(201,168,76,0.7);font-style:normal; }
+
+  /* Divider */
+  .divider { display:flex;align-items:center;gap:1rem;margin:2rem auto;width:min(500px,80%);position:relative;z-index:2;animation:fade-up 2s ease 1.5s both; }
+  .divider-line { flex:1;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent); }
+  .divider-icon { color:var(--gold);font-size:1.2rem; }
+
+  /* Invite details */
+  .details-block { display:flex;flex-direction:column;max-width:560px;width:100%;margin:0 auto;position:relative;z-index:2;border:1px solid rgba(201,168,76,0.12);animation:fade-up 2s ease 1.7s both; }
+  .detail-row { display:grid;grid-template-columns:70px 1fr;border-bottom:1px solid rgba(201,168,76,0.08); }
+  .detail-row:last-child { border-bottom:none; }
+  .detail-key { font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;padding:1.1rem 1rem 1rem 1.25rem;border-right:1px solid rgba(201,168,76,0.08);display:flex;align-items:flex-start; }
+  .detail-val { font-family:'IM Fell English',serif;font-style:italic;font-size:0.92rem;color:rgba(245,240,232,0.75);padding:1rem 1.25rem;line-height:1.6; }
+
+  /* ─── SHARED SECTION STYLES ─── */
+  .section-label { font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.5em;color:var(--gold);text-transform:uppercase;margin-bottom:1.5rem;display:block; }
+  .section-title { font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1.8rem,4vw,3rem);color:var(--cream);margin-bottom:2.5rem;line-height:1.2; }
+
+  /* ─── OUR STORY ─── */
+  .story-panel { max-width:800px;margin:0 auto;padding:80px 20px 40px; }
+  .story-body { font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1.05rem,2.5vw,1.3rem);color:rgba(245,240,232,0.82);line-height:1.9;text-align:center; }
+  .story-body em { color:var(--gold-light);font-style:normal; }
+  .layers-section { padding:40px 20px 60px;max-width:1100px;margin:0 auto; }
+  .layers-intro { font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1rem,2.5vw,1.2rem);color:rgba(245,240,232,0.55);max-width:640px;line-height:1.8;margin-bottom:3rem; }
+  .layers-stack { display:flex;flex-direction:column;gap:1px; }
+  .layer-row { display:grid;grid-template-columns:180px 1fr;border:1px solid rgba(201,168,76,0.08);transition:background 0.3s ease;position:relative;overflow:hidden; }
+  .layer-row:hover { background:rgba(201,168,76,0.03); }
+  .layer-row::after { content:'';position:absolute;left:0;top:0;bottom:0;width:2px;opacity:0;transition:opacity 0.3s ease; }
+  .layer-row.gold-accent::after { background:var(--gold); }
+  .layer-row.teal-accent::after { background:var(--teal); }
+  .layer-row.opal-accent::after { background:var(--opalite); }
+  .layer-row.plum-accent::after { background:var(--plum); }
+  .layer-row:hover::after { opacity:1; }
+  .layer-label-cell { padding:1.75rem 1.5rem;display:flex;flex-direction:column;justify-content:center;border-right:1px solid rgba(201,168,76,0.08); }
+  .layer-category { font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.35em;text-transform:uppercase;color:rgba(201,168,76,0.5);margin-bottom:0.4rem; }
+  .layer-name { font-family:'IM Fell English',serif;font-style:italic;font-size:1.1rem;color:var(--cream);line-height:1.3; }
+  .layer-body-cell { padding:1.75rem 2rem;display:flex;align-items:center; }
+  .layer-body { font-size:0.92rem;color:rgba(245,240,232,0.65);line-height:1.7;font-style:italic; }
+  .coming-soon { text-align:center;padding:50px 20px;font-family:'IM Fell English',serif;font-style:italic;font-size:1.1rem;color:rgba(245,240,232,0.25);letter-spacing:0.05em; }
+
+  /* ─── DETAILS TAB ─── */
+  .details-panel { max-width:1100px;margin:0 auto;padding:60px 20px 80px; }
+  .event-table { width:100%;border:1px solid rgba(201,168,76,0.12);margin-bottom:60px; }
+  .event-row { display:grid;grid-template-columns:100px 1fr;border-bottom:1px solid rgba(201,168,76,0.08); }
+  .event-row:last-child { border-bottom:none; }
+  .event-key { font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;padding:1.1rem 1rem 1rem 1.5rem;border-right:1px solid rgba(201,168,76,0.08);display:flex;align-items:center; }
+  .event-val { font-family:'IM Fell English',serif;font-style:italic;font-size:1rem;color:rgba(245,240,232,0.78);padding:1rem 1.5rem;line-height:1.6; }
+
+  /* Tradition cards */
+  .traditions-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2px;margin-bottom:60px; }
+  .tradition-card { position:relative;padding:2.5rem 2rem;overflow:hidden;transition:transform 0.4s ease; }
+  .tradition-card:hover { transform:translateY(-4px); }
+  .tradition-card::before { content:'';position:absolute;inset:0;z-index:0; }
+  .tradition-card.old::before    { background:linear-gradient(160deg,#1a0a2e,#0d0d12);border:1px solid rgba(201,168,76,0.2); }
+  .tradition-card.new::before    { background:linear-gradient(160deg,#0a1520,#0d1a1e);border:1px solid rgba(212,234,240,0.2); }
+  .tradition-card.borrowed::before { background:linear-gradient(160deg,#0a1a0f,#0d1510);border:1px solid rgba(26,122,94,0.25); }
+  .tradition-card.blue::before   { background:linear-gradient(160deg,#0a0a1f,#0d0d18);border:1px solid rgba(100,100,200,0.2); }
+  .tradition-content { position:relative;z-index:1; }
+  .tradition-marker { font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.5em;text-transform:uppercase;margin-bottom:0.75rem;display:block; }
+  .old .tradition-marker      { color:var(--gold); }
+  .new .tradition-marker      { color:var(--opalite); }
+  .borrowed .tradition-marker { color:var(--teal); }
+  .blue .tradition-marker     { color:#9999dd; }
+  .tradition-glyph { font-size:1.8rem;display:block;margin-bottom:1rem; }
+  .tradition-title { font-family:'IM Fell English',serif;font-style:italic;font-size:1.4rem;color:var(--cream);line-height:1.3;margin-bottom:0.75rem; }
+  .tradition-desc { font-size:0.9rem;color:rgba(245,240,232,0.65);line-height:1.7;font-style:italic; }
+
+  /* Palette */
+  .palette-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:1px;border:1px solid rgba(201,168,76,0.15);border-radius:2px;overflow:hidden;margin-bottom:60px; }
+  .swatch { aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0.75rem 0.5rem;transition:transform 0.3s ease; }
+  .swatch:hover { transform:scale(1.05);z-index:10; }
+  .swatch-name { font-family:'Cinzel',serif;font-size:0.48rem;letter-spacing:0.12em;color:rgba(255,255,255,0.6);text-align:center;text-transform:uppercase; }
+
+  /* Decor elements &mdash; minimal */
+  .elements-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1px; }
+  .element-item { border:1px solid rgba(201,168,76,0.1);padding:1.5rem 1rem;display:flex;flex-direction:column;align-items:center;text-align:center;gap:0.6rem;transition:background 0.3s ease,border-color 0.3s ease; }
+  .element-item:hover { background:rgba(201,168,76,0.04);border-color:rgba(201,168,76,0.3); }
+  .element-icon { font-size:1.4rem; }
+  .element-title { font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--gold);text-transform:uppercase; }
+
+  /* ─── PLACEHOLDERS ─── */
+  .placeholder-panel { min-height:calc(100vh - 52px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;text-align:center;position:relative; }
+  .placeholder-glyph { font-size:2rem;color:rgba(201,168,76,0.2);margin-bottom:1.5rem; }
+  .placeholder-title { font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1.5rem,4vw,2.5rem);color:rgba(245,240,232,0.2);margin-bottom:0.75rem; }
+  .placeholder-sub { font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.4em;color:rgba(201,168,76,0.2);text-transform:uppercase; }
+
+  /* FOOTER */
+  footer { text-align:center;padding:50px 20px;border-top:1px solid rgba(201,168,76,0.1);position:relative;z-index:2; }
+  .footer-names { font-family:'Cinzel',serif;font-size:0.9rem;letter-spacing:0.4em;color:var(--gold);margin-bottom:0.4rem; }
+  .footer-date { font-family:'IM Fell English',serif;font-style:italic;color:var(--grey);font-size:0.88rem; }
+
+  /* SEP */
+  .sep { display:flex;align-items:center;gap:1.5rem;max-width:600px;margin:0 auto;padding:0 20px; }
+  .sep-line { flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(201,168,76,0.25),transparent); }
+  .sep-glyph { font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.3em;color:rgba(201,168,76,0.35); }
+
+  @media(max-width:600px) {
+    .layer-row { grid-template-columns:1fr; }
+    .layer-label-cell { border-right:none;border-bottom:1px solid rgba(201,168,76,0.08); }
+    .event-row { grid-template-columns:75px 1fr; }
+    .tab-btn { padding:1rem 0.8rem;font-size:0.5rem;letter-spacing:0.18em; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-trail" id="cursorTrail"></div>
+
+<div class="orb" style="width:400px;height:400px;background:rgba(74,20,96,0.2);top:10%;left:-10%;animation-duration:12s;"></div>
+<div class="orb" style="width:300px;height:300px;background:rgba(26,92,58,0.15);top:60%;right:-5%;animation-duration:15s;animation-delay:-5s;"></div>
+<div class="orb" style="width:200px;height:200px;background:rgba(201,168,76,0.08);top:40%;left:50%;animation-duration:10s;animation-delay:-3s;"></div>
+
+<!-- TAB NAV -->
+<nav class="tab-nav">
+  <div class="tab-nav-inner">
+    <button class="tab-btn active" data-tab="invite">Invite</button>
+    <button class="tab-btn" data-tab="story">Our Story</button>
+    <button class="tab-btn" data-tab="details">Details</button>
+    <button class="tab-btn" data-tab="party">Party</button>
+    <button class="tab-btn" data-tab="rsvp">RSVP</button>
+  </div>
+</nav>
+
+<!-- ════════════ INVITE ════════════ -->
+<div class="tab-panel active" id="tab-invite">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="lantern-glow"></div>
+    <p class="hero-eyebrow">&#10022; You are invited &#10022;</p>
+    <p class="hero-occasion">to the wedding of</p>
+    <h1 class="hero-title">
+      <span class="name">Brei'anna J. Coffman</span>
+      <span class="ampersand">&</span>
+      <span class="name">Houston L. Crawford</span>
+    </h1>
+    <div class="countdown-wrap">
+      <div class="countdown-block"><span class="countdown-num" id="cd-days">&mdash;</span><span class="countdown-label">Days</span></div>
+      <div class="countdown-sep">&middot;</div>
+      <div class="countdown-block"><span class="countdown-num" id="cd-hours">&mdash;</span><span class="countdown-label">Hours</span></div>
+      <div class="countdown-sep">&middot;</div>
+      <div class="countdown-block"><span class="countdown-num" id="cd-mins">&mdash;</span><span class="countdown-label">Minutes</span></div>
+      <div class="countdown-sep">&middot;</div>
+      <div class="countdown-block"><span class="countdown-num" id="cd-secs">&mdash;</span><span class="countdown-label">Seconds</span></div>
+    </div>
+    <p class="countdown-until">until we say <em>I do</em></p>
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span class="divider-icon"><span class="candle-flame">&#128367;</span></span>
+      <div class="divider-line"></div>
+    </div>
+    <div class="details-block">
+      <div class="detail-row"><span class="detail-key">When</span><span class="detail-val">December 5th, 2026 &middot; Ceremony at 4:00 PM</span></div>
+      <div class="detail-row"><span class="detail-key">Where</span><span class="detail-val">The Brook &middot; Marengo, Ohio</span></div>
+      <div class="detail-row"><span class="detail-key">Attire</span><span class="detail-val">Dress warm &mdash; the ceremony is outdoors under the December sky. Blankets will be waiting as our gift to you.</span></div>
+    </div>
+  </div>
+  <footer><p class="footer-names">BREI &#10022; HOUSTON</p><p class="footer-date">December 5th &middot; The Brook &middot; Marengo, Ohio</p></footer>
+</div>
+
+<!-- ════════════ OUR STORY ════════════ -->
+<div class="tab-panel" id="tab-story">
+  <div class="story-panel">
+    <span class="section-label" style="text-align:center;display:block;margin-bottom:2rem;">&#10022; The story being told &#10022;</span>
+    <p class="story-body">
+      This wedding is not a single moment.<br><br>
+      It is a <em>conversation between the living and the gone</em> &mdash;
+      between what was carried forward and what is being made new.
+      Every thread was chosen deliberately.
+      Every stone, every stitch, every flame
+      is part of a language that has been building itself quietly for years.<br><br>
+      On December 5th, it speaks.
+    </p>
+  </div>
+
+  <div class="sep" style="margin:0 auto 0;"><div class="sep-line"></div><span class="sep-glyph">&#10022;</span><div class="sep-line"></div></div>
+
+  <div class="layers-section">
+    <span class="section-label">&#10022; The ancestry of the day</span>
+    <h2 class="section-title">Every Thread, Traced</h2>
+    <p class="layers-intro">A wedding is a story told in objects. Each one carried to the altar for a reason &mdash; some spoken, some silent, some known only to the one wearing them.</p>
+    <div class="layers-stack">
+      <div class="layer-row gold-accent">
+        <div class="layer-label-cell"><span class="layer-category">The Dress</span><span class="layer-name">Her mother's gown, reborn</span></div>
+        <div class="layer-body-cell"><p class="layer-body">Not preserved behind glass but worn, altered, made present again. Transformation as an act of love.</p></div>
+      </div>
+      <div class="layer-row gold-accent">
+        <div class="layer-label-cell"><span class="layer-category">The Earrings</span><span class="layer-name">Her aunt's opalite</span></div>
+        <div class="layer-body-cell"><p class="layer-body">Carried by a woman she never met, now carried by her. Her mother knows. That is enough &mdash; and it is everything.</p></div>
+      </div>
+      <div class="layer-row opal-accent">
+        <div class="layer-label-cell"><span class="layer-category">The Tiara & Necklace</span><span class="layer-name">New, in the same stone</span></div>
+        <div class="layer-body-cell"><p class="layer-body">New pieces chosen in opalite &mdash; the same shimmer as the earrings she inherited. Old and new speaking the same language.</p></div>
+      </div>
+      <div class="layer-row teal-accent">
+        <div class="layer-label-cell"><span class="layer-category">Something Borrowed</span><span class="layer-name">From Houston's people</span></div>
+        <div class="layer-body-cell"><p class="layer-body">A piece from those no longer here on his side. Wearing it says: I am joining all of you, the present and the gone alike.</p></div>
+      </div>
+      <div class="layer-row gold-accent">
+        <div class="layer-label-cell"><span class="layer-category">The Flower Girl</span><span class="layer-name">Houston's petals</span></div>
+        <div class="layer-body-cell"><p class="layer-body">She scatters petals from every flower he ever gave her. Time itself walks down the aisle first.</p></div>
+      </div>
+      <div class="layer-row plum-accent">
+        <div class="layer-label-cell"><span class="layer-category">The Lantern</span><span class="layer-name">Carried, not clutched</span></div>
+        <div class="layer-body-cell"><p class="layer-body">Gold frame, living flame, plum and emerald ribbon. She walks toward him with light in her hands instead of flowers.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="coming-soon">more to come &#10022;</div>
+  <footer><p class="footer-names">BREI &#10022; HOUSTON</p><p class="footer-date">December 5th &middot; The Brook &middot; Marengo, Ohio</p></footer>
+</div>
+
+<!-- ════════════ DETAILS ════════════ -->
+<div class="tab-panel" id="tab-details">
+  <div class="details-panel">
+
+    <span class="section-label">&#10022; The day</span>
+    <div class="event-table">
+      <div class="event-row"><span class="event-key">Who</span><span class="event-val">Brei'anna J. Coffman & Houston L. Crawford</span></div>
+      <div class="event-row"><span class="event-key">What</span><span class="event-val">A woodland wedding ceremony & reception</span></div>
+      <div class="event-row"><span class="event-key">When</span><span class="event-val">December 5th, 2026 &middot; Ceremony at 4:00 PM</span></div>
+      <div class="event-row"><span class="event-key">Where</span><span class="event-val">The Brook &middot; Marengo, Ohio</span></div>
+      <div class="event-row"><span class="event-key">Attire</span><span class="event-val">Dress warm &mdash; the ceremony is held outside. Blankets provided as a gift.</span></div>
+    </div>
+
+    <div class="sep" style="margin-bottom:60px;"><div class="sep-line"></div><span class="sep-glyph">&#10022;</span><div class="sep-line"></div></div>
+
+    <span class="section-label">&#10022; The tradition</span>
+    <h2 class="section-title">Something Old &middot; New &middot; Borrowed &middot; Blue</h2>
+    <div class="traditions-grid">
+      <div class="tradition-card old">
+        <div class="tradition-content">
+          <span class="tradition-glyph">&#129697;</span>
+          <span class="tradition-marker">Something Old</span>
+          <p class="tradition-title">A mother's dress.<br>An aunt's earrings.</p>
+          <p class="tradition-desc">Her mother's gown redesigned. Her aunt's opalite earrings &mdash; carried by a woman she never met, worn now in her honor.</p>
+        </div>
+      </div>
+      <div class="tradition-card new">
+        <div class="tradition-content">
+          <span class="tradition-glyph" style="color:var(--opalite);">&#128142;</span>
+          <span class="tradition-marker">Something New</span>
+          <p class="tradition-title">An opalite tiara.<br>An opalite necklace.</p>
+          <p class="tradition-desc">New pieces in the same stone as the earrings she inherited. The new and the old share a language.</p>
+        </div>
+      </div>
+      <div class="tradition-card borrowed">
+        <div class="tradition-content">
+          <span class="tradition-glyph" style="color:var(--teal);">&#127807;</span>
+          <span class="tradition-marker">Something Borrowed</span>
+          <p class="tradition-title">From the family<br>she is joining.</p>
+          <p class="tradition-desc">Something from Houston's side &mdash; arriving into the whole story, not just the living parts of it.</p>
+        </div>
+      </div>
+      <div class="tradition-card blue">
+        <div class="tradition-content">
+          <span class="tradition-glyph" style="color:#9999dd;">&#127769;</span>
+          <span class="tradition-marker">Something Blue</span>
+          <p class="tradition-title">Hidden where<br>only she will know.</p>
+          <p class="tradition-desc">The palette holds no blue &mdash; so blue goes somewhere private. Not every layer is for the room to see.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sep" style="margin-bottom:60px;"><div class="sep-line"></div><span class="sep-glyph">&#10022;</span><div class="sep-line"></div></div>
+
+    <span class="section-label">&#10022; The colors</span>
+    <div class="palette-grid">
+      <div class="swatch" style="background:#0d0d12;"><span class="swatch-name">Midnight</span></div>
+      <div class="swatch" style="background:#2d0a45;"><span class="swatch-name">Deep Plum</span></div>
+      <div class="swatch" style="background:#4a1460;"><span class="swatch-name">Amethyst</span></div>
+      <div class="swatch" style="background:#1a5c3a;"><span class="swatch-name">Forest</span></div>
+      <div class="swatch" style="background:#1a7a5e;"><span class="swatch-name">Teal</span></div>
+      <div class="swatch" style="background:#c9a84c;"><span class="swatch-name" style="color:rgba(0,0,0,0.6)">Gold</span></div>
+      <div class="swatch" style="background:#d4eaf0;"><span class="swatch-name" style="color:rgba(0,0,0,0.5)">Opalite</span></div>
+      <div class="swatch" style="background:#c8c4c0;"><span class="swatch-name" style="color:rgba(0,0,0,0.5)">Winter Grey</span></div>
+    </div>
+
+    <div class="sep" style="margin-bottom:60px;"><div class="sep-line"></div><span class="sep-glyph">&#10022;</span><div class="sep-line"></div></div>
+
+    <span class="section-label">&#10022; The decor</span>
+    <div class="elements-grid">
+      <div class="element-item"><span class="element-icon">&#127982;</span><p class="element-title">The Lantern</p></div>
+      <div class="element-item"><span class="element-icon">&#127807;</span><p class="element-title">Reindeer Moss</p></div>
+      <div class="element-item"><span class="element-icon">&#128367;</span><p class="element-title">Candlelight</p></div>
+      <div class="element-item"><span class="element-icon">&#128444;</span><p class="element-title">Gold Frames</p></div>
+      <div class="element-item"><span class="element-icon">&#127794;</span><p class="element-title">Pinecones & Twine</p></div>
+      <div class="element-item"><span class="element-icon">&#129507;</span><p class="element-title">Guest Blankets</p></div>
+      <div class="element-item"><span class="element-icon">&#127810;</span><p class="element-title">Dried Botanicals</p></div>
+      <div class="element-item"><span class="element-icon">&#10024;</span><p class="element-title">String Lights</p></div>
+    </div>
+
+  </div>
+  <footer><p class="footer-names">BREI &#10022; HOUSTON</p><p class="footer-date">December 5th &middot; The Brook &middot; Marengo, Ohio</p></footer>
+</div>
+
+<!-- ════════════ PARTY ════════════ -->
+<div class="tab-panel" id="tab-party">
+  <div class="placeholder-panel">
+    <div class="orb" style="width:300px;height:300px;background:rgba(74,20,96,0.12);top:30%;left:30%;animation-duration:10s;position:absolute;"></div>
+    <p class="placeholder-glyph">&#128367;</p>
+    <p class="placeholder-title">More to come</p>
+    <p class="placeholder-sub">&#10022; details being gathered &#10022;</p>
+  </div>
+  <footer><p class="footer-names">BREI &#10022; HOUSTON</p><p class="footer-date">December 5th &middot; The Brook &middot; Marengo, Ohio</p></footer>
+</div>
+
+<!-- ════════════ RSVP ════════════ -->
+<div class="tab-panel" id="tab-rsvp">
+  <div class="placeholder-panel">
+    <div class="orb" style="width:300px;height:300px;background:rgba(26,92,58,0.1);top:30%;left:30%;animation-duration:12s;position:absolute;"></div>
+    <p class="placeholder-glyph">&#9993;</p>
+    <p class="placeholder-title">RSVP coming soon</p>
+    <p class="placeholder-sub">&#10022; we will find you &#10022;</p>
+  </div>
+  <footer><p class="footer-names">BREI &#10022; HOUSTON</p><p class="footer-date">December 5th &middot; The Brook &middot; Marengo, Ohio</p></footer>
+</div>
+
+<script>
+  // TAB SWITCHING
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      window.scrollTo(0,0);
+    });
+  });
+
+  // COUNTDOWN
+  function updateCountdown() {
+    const diff = new Date('2026-12-05T16:00:00') - new Date();
+    if (diff <= 0) { ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => document.getElementById(id).textContent='00'); return; }
+    const pad = n => String(n).padStart(2,'0');
+    document.getElementById('cd-days').textContent  = pad(Math.floor(diff/86400000));
+    document.getElementById('cd-hours').textContent = pad(Math.floor((diff%86400000)/3600000));
+    document.getElementById('cd-mins').textContent  = pad(Math.floor((diff%3600000)/60000));
+    document.getElementById('cd-secs').textContent  = pad(Math.floor((diff%60000)/1000));
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // CURSOR
+  const cursor = document.getElementById('cursor');
+  const trail  = document.getElementById('cursorTrail');
+  let mx=0,my=0,tx=0,ty=0;
+  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
+  (function loop(){ tx+=(mx-tx)*0.12; ty+=(my-ty)*0.12; trail.style.left=tx+'px'; trail.style.top=ty+'px'; requestAnimationFrame(loop); })();
+
+  // PARTICLES
+  const syms=['&#10022;','&middot;','&#10023;','&#8902;','&#730;'];
+  for(let i=0;i<20;i++){
+    const p=document.createElement('div'); p.className='particle';
+    p.textContent=syms[Math.floor(Math.random()*syms.length)];
+    p.style.cssText=`left:${Math.random()*100}vw;font-size:${Math.random()*10+6}px;color:rgba(201,168,76,${Math.random()*0.4+0.1});animation-duration:${Math.random()*15+12}s;animation-delay:-${Math.random()*15}s;`;
+    document.body.appendChild(p);
+  }
+</script>
+</body>
+</html>
