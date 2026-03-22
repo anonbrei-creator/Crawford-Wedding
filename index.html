@@ -51,10 +51,10 @@
   .tab-nav { position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:center;background:rgba(8,8,16,0.88);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,168,76,0.12); }
   .tab-nav-inner { display:flex;overflow-x:auto;scrollbar-width:none; }
   .tab-nav-inner::-webkit-scrollbar { display:none; }
-  .tab-btn { font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(201,168,76,0.4);background:none;border:none;cursor:none;padding:1.1rem 1.4rem;position:relative;white-space:nowrap;transition:color 0.3s ease; }
+  .tab-btn { font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.5);background:none;border:none;cursor:none;padding:1.1rem 1.4rem;position:relative;white-space:nowrap;transition:color 0.3s ease; }
   .tab-btn::after { content:'';position:absolute;bottom:0;left:20%;right:20%;height:1px;background:var(--gold);transform:scaleX(0);transition:transform 0.3s ease; }
-  .tab-btn:hover { color:rgba(201,168,76,0.7); }
-  .tab-btn.active { color:var(--gold); }
+  .tab-btn:hover { color:rgba(255,255,255,0.85); }
+  .tab-btn.active { color:#ffffff; }
   .tab-btn.active::after { transform:scaleX(1); }
 
   /* PANELS */
@@ -288,7 +288,7 @@
   <div class="quiz-wrap">
     <div class="quiz-intro">
       <p class="quiz-intro-title">Brei &amp; Houston Trivia</p>
-      <p class="quiz-intro-sub">&#10022; five questions. dont worry, your answers won't be shared. &#10022;</p>
+      <p class="quiz-intro-sub">&#10022; five questions &#10022; how well do you know the story &#10022;</p>
     </div>
 
     <!-- Progress -->
@@ -469,8 +469,8 @@
       choices: ["Work", "Dating app"],
       correct: [0],
       both: false,
-      rightMsg: "&#10022; You know the origin story!",
-      wrongMsg: "&#128580; Not quite. No swiping required. We found each other at work.",
+      rightMsg: "&#10022; You know the origin story &mdash; that's how it all started.",
+      wrongMsg: "&#128580; Not quite &mdash; no swiping required. They found each other at work.",
       bothMsg: null
     },
     {
@@ -487,8 +487,8 @@
       choices: ["Dinner and a movie", "Bowling"],
       correct: [0],
       both: false,
-      rightMsg: "&#10022; Correct! How clich\u00e9 right?",
-      wrongMsg: "&#127925; Close, but no. Dinner and a movie. Classic, we know."
+      rightMsg: "&#10022; Correct &mdash; how clich\u00e9 right?",
+      wrongMsg: "&#127925; Close, but no &mdash; dinner and a movie. Classic, we know."
     },
     {
       q: "How long were they dating before getting engaged?",
@@ -496,7 +496,7 @@
       correct: [1],
       both: false,
       rightMsg: "Took us long enough to get married, huh? &#128514;",
-      wrongMsg: "&#10022; Four months! When you know, you know."
+      wrongMsg: "&#10022; Four months &mdash; when you know, you know."
     },
     {
       q: "When\u2019s the wedding date again? (Without looking \uD83D\uDC40)",
@@ -504,7 +504,7 @@
       correct: [0],
       both: false,
       rightMsg: "Just checking \uD83D\uDE09 You pass.",
-      wrongMsg: "&#128580; December 5th... you might want to save that date. \uD83D\uDC40"
+      wrongMsg: "&#128580; December 5th &mdash; you might want to save that date."
     }
   ];
 
