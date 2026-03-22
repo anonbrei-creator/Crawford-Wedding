@@ -51,8 +51,12 @@
   @keyframes flicker   { 0%,100%{opacity:1;transform:scale(1) rotate(-1deg)} 25%{opacity:0.8;transform:scale(0.95) rotate(1deg)} 50%{opacity:1;transform:scale(1.02) rotate(-0.5deg)} 75%{opacity:0.9;transform:scale(0.98) rotate(1.5deg)} }
   @keyframes scroll-drop { 0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top} 51%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom} }
 
+  /* ─── SPOTIFY FIXED BAR ─── */
+  .spotify-bar { position:fixed;top:0;left:0;right:0;z-index:101;height:80px;background:rgba(8,8,16,0.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(232,201,122,0.1); }
+  .spotify-bar iframe { display:block; }
+
   /* TAB NAV */
-  .tab-nav { position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:center;background:rgba(8,8,16,0.88);backdrop-filter:blur(16px);border-bottom:1px solid rgba(232,201,122,0.12); }
+  .tab-nav { position:fixed;top:80px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:center;background:rgba(8,8,16,0.88);backdrop-filter:blur(16px);border-bottom:1px solid rgba(232,201,122,0.12); }
   .tab-nav-inner { display:flex;overflow-x:auto;scrollbar-width:none; }
   .tab-nav-inner::-webkit-scrollbar { display:none; }
   .tab-btn { font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.5);background:none;border:none;cursor:none;padding:1.1rem 1.4rem;position:relative;white-space:nowrap;transition:color 0.3s ease; }
@@ -62,11 +66,11 @@
   .tab-btn.active::after { transform:scaleX(1); }
 
   /* PANELS */
-  .tab-panel { display:none;min-height:100vh;padding-top:52px; }
+  .tab-panel { display:none;min-height:100vh;padding-top:132px; }
   .tab-panel.active { display:block; }
 
   /* ─── INVITE ─── */
-  .hero { min-height:calc(100vh - 52px);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:60px 20px 80px; }
+  .hero { min-height:calc(100vh - 132px);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:60px 20px 80px; }
   .hero-bg { position:absolute;inset:0;background:radial-gradient(ellipse at 15% 50%,rgba(100,20,140,0.55) 0%,transparent 55%),radial-gradient(ellipse at 85% 25%,rgba(20,140,100,0.45) 0%,transparent 50%),radial-gradient(ellipse at 50% 85%,rgba(26,160,130,0.3) 0%,transparent 50%),radial-gradient(ellipse at 60% 10%,rgba(80,180,160,0.2) 0%,transparent 40%),var(--midnight); }
   .lantern-glow { position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(232,201,122,0.15) 0%,transparent 70%);animation:pulse-glow 3s ease-in-out infinite;pointer-events:none; }
   .hero-eyebrow { font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.4em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem;position:relative;z-index:2;animation:fade-up 1.5s ease 0.3s both; }
@@ -96,6 +100,12 @@
   .detail-row:last-child { border-bottom:none; }
   .detail-key { font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;padding:1.1rem 1rem 1rem 1.25rem;border-right:1px solid rgba(232,201,122,0.08);display:flex;align-items:flex-start; }
   .detail-val { font-family:'IM Fell English',serif;font-style:italic;font-size:0.92rem;color:rgba(245,240,232,0.75);padding:1rem 1.25rem;line-height:1.6; }
+
+  /* ─── SPOTIFY ─── */
+  .spotify-wrap { max-width:560px;margin:0 auto;padding:0 20px 60px;position:relative;z-index:2; }
+  .spotify-frame { border:1px solid rgba(232,201,122,0.15);padding:2px;background:rgba(232,201,122,0.03);position:relative; }
+  .spotify-frame::before { content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent); }
+  .spotify-frame iframe { display:block;border-radius:0; }
 
   /* ─── SHARED SECTION STYLES ─── */
   .section-label { font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.5em;color:var(--gold);text-transform:uppercase;margin-bottom:1.5rem;display:block; }
@@ -254,6 +264,19 @@
 <div class="orb" style="width:350px;height:350px;background:rgba(26,160,140,0.15);top:30%;left:40%;animation-duration:10s;animation-delay:-3s;"></div>
 <div class="orb" style="width:250px;height:250px;background:rgba(80,200,180,0.1);top:70%;left:20%;animation-duration:18s;animation-delay:-8s;"></div>
 
+<!-- FIXED SPOTIFY BAR -->
+<div class="spotify-bar">
+  <iframe
+    src="https://open.spotify.com/embed/track/3qRVXyIOtIzceC3ltKyLqp?utm_source=generator&theme=0"
+    width="100%"
+    height="80"
+    frameborder="0"
+    allowfullscreen=""
+    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+    loading="lazy">
+  </iframe>
+</div>
+
 <!-- TAB NAV -->
 <nav class="tab-nav">
   <div class="tab-nav-inner">
@@ -298,6 +321,7 @@
       <div class="detail-row"><span class="detail-key">Attire</span><span class="detail-val">Dress warm &mdash; the ceremony is outdoors under the December sky. Blankets will be waiting as our gift to you.</span></div>
     </div>
   </div>
+
   <footer><p class="footer-names">BREI &#10022; HOUSTON</p><p class="footer-date">December 5th &middot; The Brook &middot; Marengo, Ohio</p></footer>
 </div>
 
