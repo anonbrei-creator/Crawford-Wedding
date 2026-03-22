@@ -101,23 +101,63 @@
   .story-panel { max-width:800px;margin:0 auto;padding:80px 20px 40px; }
   .story-body { font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1.05rem,2.5vw,1.3rem);color:rgba(245,240,232,0.82);line-height:1.9;text-align:center; }
   .story-body em { color:var(--gold-light);font-style:normal; }
-  .layers-section { padding:40px 20px 60px;max-width:1100px;margin:0 auto; }
-  .layers-intro { font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1rem,2.5vw,1.2rem);color:rgba(245,240,232,0.55);max-width:640px;line-height:1.8;margin-bottom:3rem; }
-  .layers-stack { display:flex;flex-direction:column;gap:1px; }
-  .layer-row { display:grid;grid-template-columns:180px 1fr;border:1px solid rgba(201,168,76,0.08);transition:background 0.3s ease;position:relative;overflow:hidden; }
-  .layer-row:hover { background:rgba(201,168,76,0.03); }
-  .layer-row::after { content:'';position:absolute;left:0;top:0;bottom:0;width:2px;opacity:0;transition:opacity 0.3s ease; }
-  .layer-row.gold-accent::after { background:var(--gold); }
-  .layer-row.teal-accent::after { background:var(--teal); }
-  .layer-row.opal-accent::after { background:var(--opalite); }
-  .layer-row.plum-accent::after { background:var(--plum); }
-  .layer-row:hover::after { opacity:1; }
-  .layer-label-cell { padding:1.75rem 1.5rem;display:flex;flex-direction:column;justify-content:center;border-right:1px solid rgba(201,168,76,0.08); }
-  .layer-category { font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.35em;text-transform:uppercase;color:rgba(201,168,76,0.5);margin-bottom:0.4rem; }
-  .layer-name { font-family:'IM Fell English',serif;font-style:italic;font-size:1.1rem;color:var(--cream);line-height:1.3; }
-  .layer-body-cell { padding:1.75rem 2rem;display:flex;align-items:center; }
-  .layer-body { font-size:0.92rem;color:rgba(245,240,232,0.65);line-height:1.7;font-style:italic; }
   .coming-soon { text-align:center;padding:50px 20px;font-family:'IM Fell English',serif;font-style:italic;font-size:1.1rem;color:rgba(245,240,232,0.25);letter-spacing:0.05em; }
+
+  /* ─── TRIVIA QUIZ ─── */
+  .quiz-wrap { max-width:680px;margin:0 auto;padding:20px 20px 80px; }
+  .quiz-intro { text-align:center;margin-bottom:3rem; }
+  .quiz-intro-title { font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1.6rem,4vw,2.4rem);color:var(--cream);margin-bottom:0.75rem; }
+  .quiz-intro-sub { font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.4em;color:rgba(201,168,76,0.5);text-transform:uppercase; }
+
+  /* Progress */
+  .quiz-progress-bar-track { width:100%;height:2px;background:rgba(201,168,76,0.1);margin-bottom:2.5rem;position:relative; }
+  .quiz-progress-bar-fill { height:2px;background:linear-gradient(to right,var(--teal),var(--gold));transition:width 0.6s ease;width:0%; }
+  .quiz-progress-label { font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:0.35em;color:rgba(201,168,76,0.4);text-transform:uppercase;margin-bottom:0.75rem;display:flex;justify-content:space-between; }
+
+  /* Card */
+  .quiz-card { border:1px solid rgba(201,168,76,0.14);padding:2.5rem 2rem;position:relative;overflow:hidden;background:rgba(255,255,255,0.015); }
+  .quiz-card::before { content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,rgba(201,168,76,0.3),transparent); }
+  .quiz-q-num { font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.45em;color:rgba(201,168,76,0.35);text-transform:uppercase;margin-bottom:1.25rem;display:block; }
+  .quiz-q-text { font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1.1rem,3vw,1.5rem);color:var(--cream);line-height:1.5;margin-bottom:2rem; }
+
+  /* Choices */
+  .quiz-choices { display:flex;flex-direction:column;gap:0.75rem; }
+  .quiz-choice { display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;border:1px solid rgba(201,168,76,0.12);background:transparent;cursor:none;color:var(--cream);font-family:'IM Fell English',serif;font-style:italic;font-size:1rem;text-align:left;transition:border-color 0.25s ease,background 0.25s ease;position:relative;overflow:hidden;width:100%; }
+  .quiz-choice:hover:not(:disabled) { border-color:rgba(201,168,76,0.4);background:rgba(201,168,76,0.04); }
+  .quiz-choice-letter { font-family:'Cinzel',serif;font-style:normal;font-size:0.55rem;letter-spacing:0.3em;color:rgba(201,168,76,0.45);min-width:1.2rem;transition:color 0.25s ease; }
+  .quiz-choice.correct { border-color:rgba(26,122,94,0.7);background:rgba(26,122,94,0.08); }
+  .quiz-choice.correct .quiz-choice-letter { color:var(--teal); }
+  .quiz-choice.wrong { border-color:rgba(180,60,60,0.6);background:rgba(180,60,60,0.07); }
+  .quiz-choice.wrong .quiz-choice-letter { color:#c06060; }
+  .quiz-choice.reveal-correct { border-color:rgba(26,122,94,0.4);background:rgba(26,122,94,0.04); }
+  .quiz-choice:disabled { cursor:not-allowed; }
+
+  /* Feedback */
+  .quiz-feedback { margin-top:1.5rem;padding:1.1rem 1.5rem;border-left:2px solid;font-family:'IM Fell English',serif;font-style:italic;font-size:0.95rem;line-height:1.7;animation:fade-up 0.4s ease both;display:none; }
+  .quiz-feedback.show { display:block; }
+  .quiz-feedback.correct-fb { border-color:var(--teal);color:rgba(212,234,240,0.85); }
+  .quiz-feedback.wrong-fb { border-color:#c06060;color:rgba(245,200,200,0.8); }
+  .quiz-feedback.both-fb { border-color:var(--gold);color:rgba(232,201,122,0.85); }
+  .quiz-feedback-icon { margin-right:0.5rem; }
+
+  /* Next btn */
+  .quiz-next { margin-top:2rem;display:none;font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);background:none;border:1px solid rgba(201,168,76,0.3);padding:0.85rem 2rem;cursor:none;transition:border-color 0.3s ease,background 0.3s ease;width:100%; }
+  .quiz-next:hover { border-color:var(--gold);background:rgba(201,168,76,0.06); }
+  .quiz-next.show { display:block; }
+
+  /* Results */
+  .quiz-results { display:none;text-align:center;padding:3rem 1rem;animation:fade-up 0.6s ease both; }
+  .quiz-results.show { display:block; }
+  .quiz-score-ring { width:120px;height:120px;margin:0 auto 2rem;position:relative; }
+  .quiz-score-ring svg { transform:rotate(-90deg); }
+  .quiz-score-ring circle { fill:none;stroke-width:3; }
+  .quiz-score-ring .track { stroke:rgba(201,168,76,0.1); }
+  .quiz-score-ring .fill { stroke:var(--gold);stroke-linecap:round;transition:stroke-dashoffset 1.2s ease; }
+  .quiz-score-num { position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:1.6rem;color:var(--gold-light); }
+  .quiz-result-msg { font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1.2rem,3vw,1.7rem);color:var(--cream);margin-bottom:0.75rem;line-height:1.4; }
+  .quiz-result-sub { font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.4em;color:rgba(201,168,76,0.45);text-transform:uppercase;margin-bottom:2.5rem; }
+  .quiz-restart { font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);background:none;border:1px solid rgba(201,168,76,0.3);padding:0.85rem 2.5rem;cursor:none;transition:border-color 0.3s ease,background 0.3s ease; }
+  .quiz-restart:hover { border-color:var(--gold);background:rgba(201,168,76,0.06); }
 
   /* ─── DETAILS TAB ─── */
   .details-panel { max-width:1100px;margin:0 auto;padding:60px 20px 80px; }
@@ -242,10 +282,44 @@
 <!-- ════════════ OUR STORY ════════════ -->
 <div class="tab-panel" id="tab-story">
   <div class="story-panel">
-    <span class="section-label" style="text-align:center;display:block;margin-bottom:2rem;">&#10022; How we met &#10022;</span>
-    <p class="story-body coming-soon">
-      more to come &#10022;
-    </p>
+    <span class="section-label" style="text-align:center;display:block;margin-bottom:1rem;">&#10022; How well do you know us &#10022;</span>
+  </div>
+
+  <div class="quiz-wrap">
+    <div class="quiz-intro">
+      <p class="quiz-intro-title">Brei &amp; Houston Trivia</p>
+      <p class="quiz-intro-sub">&#10022; five questions &#10022; how well do you know the story &#10022;</p>
+    </div>
+
+    <!-- Progress -->
+    <div class="quiz-progress-label">
+      <span id="qz-label">Question 1 of 5</span>
+      <span id="qz-score-live">0 correct</span>
+    </div>
+    <div class="quiz-progress-bar-track"><div class="quiz-progress-bar-fill" id="qz-bar"></div></div>
+
+    <!-- Card -->
+    <div class="quiz-card" id="qz-card">
+      <span class="quiz-q-num" id="qz-num">&#10022; 01</span>
+      <p class="quiz-q-text" id="qz-text"></p>
+      <div class="quiz-choices" id="qz-choices"></div>
+      <div class="quiz-feedback" id="qz-feedback"></div>
+      <button class="quiz-next" id="qz-next">Next &#10022;</button>
+    </div>
+
+    <!-- Results -->
+    <div class="quiz-results" id="qz-results">
+      <div class="quiz-score-ring">
+        <svg width="120" height="120" viewBox="0 0 120 120">
+          <circle class="track" cx="60" cy="60" r="52"/>
+          <circle class="fill" id="qz-ring-fill" cx="60" cy="60" r="52" stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
+        </svg>
+        <div class="quiz-score-num" id="qz-score-final">0/5</div>
+      </div>
+      <p class="quiz-result-msg" id="qz-result-msg"></p>
+      <p class="quiz-result-sub" id="qz-result-sub"></p>
+      <button class="quiz-restart" id="qz-restart">&#10022; Try Again &#10022;</button>
+    </div>
   </div>
   <footer><p class="footer-names">BREI &#10022; HOUSTON</p><p class="footer-date">December 5th &middot; The Brook &middot; Marengo, Ohio</p></footer>
 </div>
@@ -387,6 +461,171 @@
   let mx=0,my=0,tx=0,ty=0;
   document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
   (function loop(){ tx+=(mx-tx)*0.12; ty+=(my-ty)*0.12; trail.style.left=tx+'px'; trail.style.top=ty+'px'; requestAnimationFrame(loop); })();
+
+  // ── TRIVIA QUIZ ──
+  const QUESTIONS = [
+    {
+      q: "Where did Brei and Houston meet?",
+      choices: ["Work", "Dating app"],
+      correct: [0],
+      both: false,
+      rightMsg: "&#10022; You know the origin story!",
+      wrongMsg: "&#128580; Not quite. No swiping required. We found each other at work.",
+      bothMsg: null
+    },
+    {
+      q: "Who said \u201cI love you\u201d first?",
+      choices: ["Houston", "Brei"],
+      correct: [0, 1],
+      both: true,
+      rightMsg: null,
+      wrongMsg: null,
+      bothMsg: "You were right either way &mdash; we said it at the same time. &#10084;"
+    },
+    {
+      q: "What did they do on their first date?",
+      choices: ["Dinner and a movie", "Bowling"],
+      correct: [0],
+      both: false,
+      rightMsg: "&#10022; Correct! How clich\u00e9 right?",
+      wrongMsg: "&#127925; Close, but no. Dinner and a movie. Classic, we know."
+    },
+    {
+      q: "How long were they dating before getting engaged?",
+      choices: ["1.5 years", "4 months"],
+      correct: [1],
+      both: false,
+      rightMsg: "Took us long enough to get married, huh? &#128514;",
+      wrongMsg: "&#10022; Four months! When you know, you know."
+    },
+    {
+      q: "When\u2019s the wedding date again? (Without looking \uD83D\uDC40)",
+      choices: ["December 5th", "November 7th"],
+      correct: [0],
+      both: false,
+      rightMsg: "Just checking \uD83D\uDE09 You pass.",
+      wrongMsg: "&#128580; December 5th... you might want to save that date. \uD83D\uDC40"
+    }
+  ];
+
+  let qzIndex = 0, qzScore = 0, qzAnswered = false;
+
+  function qzRender() {
+    const q = QUESTIONS[qzIndex];
+    qzAnswered = false;
+
+    document.getElementById('qz-label').textContent = `Question ${qzIndex + 1} of ${QUESTIONS.length}`;
+    document.getElementById('qz-score-live').textContent = `${qzScore} correct`;
+    document.getElementById('qz-bar').style.width = `${(qzIndex / QUESTIONS.length) * 100}%`;
+    document.getElementById('qz-num').innerHTML = `&#10022; ${String(qzIndex + 1).padStart(2, '0')}`;
+    document.getElementById('qz-text').textContent = q.q;
+
+    const fb = document.getElementById('qz-feedback');
+    fb.className = 'quiz-feedback';
+    fb.innerHTML = '';
+
+    const next = document.getElementById('qz-next');
+    next.className = 'quiz-next';
+
+    const choicesEl = document.getElementById('qz-choices');
+    choicesEl.innerHTML = '';
+    q.choices.forEach((text, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'quiz-choice';
+      btn.innerHTML = `<span class="quiz-choice-letter">${String.fromCharCode(65 + i)}</span>${text}`;
+      btn.addEventListener('click', () => qzAnswer(i));
+      choicesEl.appendChild(btn);
+    });
+
+    document.getElementById('qz-card').style.display = 'block';
+    document.getElementById('qz-results').classList.remove('show');
+  }
+
+  function qzAnswer(chosen) {
+    if (qzAnswered) return;
+    qzAnswered = true;
+    const q = QUESTIONS[qzIndex];
+    const isCorrect = q.correct.includes(chosen);
+    const buttons = document.querySelectorAll('.quiz-choice');
+
+    buttons.forEach((btn, i) => {
+      btn.disabled = true;
+      if (q.both) {
+        btn.classList.add('correct');
+      } else if (i === chosen && isCorrect) {
+        btn.classList.add('correct');
+      } else if (i === chosen && !isCorrect) {
+        btn.classList.add('wrong');
+      } else if (q.correct.includes(i)) {
+        btn.classList.add('reveal-correct');
+      }
+    });
+
+    if (isCorrect || q.both) qzScore++;
+
+    const fb = document.getElementById('qz-feedback');
+    if (q.both) {
+      fb.className = 'quiz-feedback both-fb show';
+      fb.innerHTML = `<span class="quiz-feedback-icon">&#10022;</span>${q.bothMsg}`;
+    } else if (isCorrect) {
+      fb.className = 'quiz-feedback correct-fb show';
+      fb.innerHTML = `<span class="quiz-feedback-icon">&#10022;</span>${q.rightMsg}`;
+    } else {
+      fb.className = 'quiz-feedback wrong-fb show';
+      fb.innerHTML = `<span class="quiz-feedback-icon">&#8967;</span>${q.wrongMsg}`;
+    }
+
+    const next = document.getElementById('qz-next');
+    next.className = 'quiz-next show';
+    next.textContent = qzIndex < QUESTIONS.length - 1 ? 'Next ✦' : 'See Results ✦';
+  }
+
+  document.getElementById('qz-next').addEventListener('click', () => {
+    qzIndex++;
+    if (qzIndex < QUESTIONS.length) {
+      qzRender();
+    } else {
+      qzShowResults();
+    }
+  });
+
+  function qzShowResults() {
+    document.getElementById('qz-card').style.display = 'none';
+    const res = document.getElementById('qz-results');
+    res.classList.add('show');
+    document.getElementById('qz-score-final').textContent = `${qzScore}/5`;
+    document.getElementById('qz-bar').style.width = '100%';
+    document.getElementById('qz-label').textContent = 'Complete';
+    document.getElementById('qz-score-live').textContent = `${qzScore} correct`;
+
+    const msgs = [
+      { msg: "Did you even come to the wedding?", sub: "&#10022; that's okay, love brought you here anyway &#10022;" },
+      { msg: "You know a little something.", sub: "&#10022; pay closer attention at the reception &#10022;" },
+      { msg: "Not bad at all.", sub: "&#10022; you were paying attention &#10022;" },
+      { msg: "You clearly care about these two.", sub: "&#10022; and they feel it &#10022;" },
+      { msg: "You basically wrote the love story.", sub: "&#10022; okay, we see you &#10022;" },
+      { msg: "Are you one of them?", sub: "&#10022; a perfect score &mdash; we love that for you &#10022;" },
+    ];
+    const tier = Math.min(qzScore, 5);
+    document.getElementById('qz-result-msg').innerHTML = msgs[tier].msg;
+    document.getElementById('qz-result-sub').innerHTML = msgs[tier].sub;
+
+    // Animate ring
+    const circ = 326.7;
+    const offset = circ - (qzScore / QUESTIONS.length) * circ;
+    setTimeout(() => {
+      document.getElementById('qz-ring-fill').style.strokeDashoffset = offset;
+    }, 100);
+  }
+
+  document.getElementById('qz-restart').addEventListener('click', () => {
+    qzIndex = 0; qzScore = 0;
+    document.getElementById('qz-bar').style.width = '0%';
+    document.getElementById('qz-ring-fill').style.strokeDashoffset = 326.7;
+    qzRender();
+  });
+
+  qzRender();
 
   // PARTICLES
   const syms=['&#10022;','&middot;','&#10023;','&#8902;','&#730;'];
