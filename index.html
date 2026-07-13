@@ -184,37 +184,24 @@
   .event-key { font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;padding:1.1rem 1rem 1rem 1.5rem;border-right:1px solid rgba(232,201,122,0.08);display:flex;align-items:center; }
   .event-val { font-family:'IM Fell English',serif;font-style:italic;font-size:1rem;color:rgba(245,240,232,0.78);padding:1rem 1.5rem;line-height:1.6; }
 
-  /* Tradition cards */
-  .traditions-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2px;margin-bottom:60px; }
-  .tradition-card { position:relative;padding:2.5rem 2rem;overflow:hidden;transition:transform 0.4s ease; }
-  .tradition-card:hover { transform:translateY(-4px); }
-  .tradition-card::before { content:'';position:absolute;inset:0;z-index:0; }
-  .tradition-card.old::before    { background:linear-gradient(160deg,#1a0a2e,#0d0d12);border:1px solid rgba(232,201,122,0.2); }
-  .tradition-card.new::before    { background:linear-gradient(160deg,#0a1520,#0d1a1e);border:1px solid rgba(212,234,240,0.2); }
-  .tradition-card.borrowed::before { background:linear-gradient(160deg,#0a1a0f,#0d1510);border:1px solid rgba(26,140,78,0.25); }
-  .tradition-card.blue::before   { background:linear-gradient(160deg,#0a0a1f,#0d0d18);border:1px solid rgba(100,100,200,0.2); }
-  .tradition-content { position:relative;z-index:1; }
-  .tradition-marker { font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.5em;text-transform:uppercase;margin-bottom:0.75rem;display:block; }
-  .old .tradition-marker      { color:var(--gold); }
-  .new .tradition-marker      { color:var(--opalite); }
-  .borrowed .tradition-marker { color:var(--teal); }
-  .blue .tradition-marker     { color:#9999dd; }
-  .tradition-glyph { font-size:1.8rem;display:block;margin-bottom:1rem; }
-  .tradition-title { font-family:'IM Fell English',serif;font-style:italic;font-size:1.4rem;color:var(--cream);line-height:1.3;margin-bottom:0.75rem; }
-  .tradition-desc { font-size:0.9rem;color:rgba(245,240,232,0.65);line-height:1.7;font-style:italic; }
-
   /* Palette */
   .palette-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:1px;border:1px solid rgba(232,201,122,0.15);border-radius:2px;overflow:hidden;margin-bottom:60px; }
   .swatch { aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0.75rem 0.5rem;transition:transform 0.3s ease; }
   .swatch:hover { transform:scale(1.05);z-index:10; }
   .swatch-name { font-family:'Cinzel',serif;font-size:0.48rem;letter-spacing:0.12em;color:rgba(255,255,255,0.6);text-align:center;text-transform:uppercase; }
 
-  /* Decor elements &mdash; minimal */
-  .elements-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1px; }
-  .element-item { border:1px solid rgba(232,201,122,0.1);padding:1.5rem 1rem;display:flex;flex-direction:column;align-items:center;text-align:center;gap:0.6rem;transition:background 0.3s ease,border-color 0.3s ease; }
-  .element-item:hover { background:rgba(232,201,122,0.04);border-color:rgba(232,201,122,0.3); }
-  .element-icon { font-size:1.4rem; }
-  .element-title { font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--gold);text-transform:uppercase; }
+  /* ─── PARTY TAB ─── */
+  .party-panel { max-width:1100px;margin:0 auto;padding:60px 20px 40px; }
+  .party-group { margin-bottom:56px; }
+  .party-group-label { font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.5em;color:var(--gold);text-transform:uppercase;margin-bottom:0.5rem;display:block; }
+  .party-group-title { font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1.3rem,3vw,1.9rem);color:var(--cream);margin-bottom:1.75rem;line-height:1.2; }
+  .party-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:2px; }
+  .party-card { position:relative;padding:2rem 1.25rem;text-align:center;background:rgba(255,255,255,0.015);border:1px solid rgba(232,201,122,0.12);transition:transform 0.35s ease,border-color 0.35s ease; }
+  .party-card:hover { transform:translateY(-4px);border-color:rgba(232,201,122,0.32); }
+  .party-icon { font-size:1.5rem;display:block;margin-bottom:0.75rem; }
+  .party-role { font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.28em;color:rgba(232,201,122,0.55);text-transform:uppercase;display:block;margin-bottom:0.6rem; }
+  .party-name { font-family:'IM Fell English',serif;font-style:italic;font-size:1.12rem;color:var(--cream); }
+  .party-name.tbd { color:rgba(245,240,232,0.28); }
 
   /* ─── RSVP ─── */
   .rsvp-panel { max-width:780px;margin:0 auto;padding:80px 20px 60px; }
@@ -295,7 +282,7 @@
   <div class="hero">
     <div class="hero-bg"></div>
     <div class="lantern-glow"></div>
-    <p class="hero-eyebrow">&#10022; You are invited &#10022;</p>
+    <p class="hero-eyebrow">✦ You are invited ✦</p>
     <p class="hero-occasion">to the wedding of</p>
     <h1 class="hero-title">
       <span class="name">Brei'anna J. Coffman</span>
@@ -303,40 +290,40 @@
       <span class="name">Houston L. Crawford</span>
     </h1>
     <div class="countdown-wrap">
-      <div class="countdown-block"><span class="countdown-num" id="cd-days">&mdash;</span><span class="countdown-label">Days</span></div>
-      <div class="countdown-sep">&middot;</div>
-      <div class="countdown-block"><span class="countdown-num" id="cd-hours">&mdash;</span><span class="countdown-label">Hours</span></div>
-      <div class="countdown-sep">&middot;</div>
-      <div class="countdown-block"><span class="countdown-num" id="cd-mins">&mdash;</span><span class="countdown-label">Minutes</span></div>
-      <div class="countdown-sep">&middot;</div>
-      <div class="countdown-block"><span class="countdown-num" id="cd-secs">&mdash;</span><span class="countdown-label">Seconds</span></div>
+      <div class="countdown-block"><span class="countdown-num" id="cd-days">—</span><span class="countdown-label">Days</span></div>
+      <div class="countdown-sep">·</div>
+      <div class="countdown-block"><span class="countdown-num" id="cd-hours">—</span><span class="countdown-label">Hours</span></div>
+      <div class="countdown-sep">·</div>
+      <div class="countdown-block"><span class="countdown-num" id="cd-mins">—</span><span class="countdown-label">Minutes</span></div>
+      <div class="countdown-sep">·</div>
+      <div class="countdown-block"><span class="countdown-num" id="cd-secs">—</span><span class="countdown-label">Seconds</span></div>
     </div>
     <p class="countdown-until">until we say <em>I do</em></p>
     <div class="divider">
       <div class="divider-line"></div>
-      <span class="divider-icon"><span class="candle-flame">&#128367;</span></span>
+      <span class="divider-icon"><span class="candle-flame">🕯</span></span>
       <div class="divider-line"></div>
     </div>
     <div class="details-block">
-      <div class="detail-row"><span class="detail-key">When</span><span class="detail-val">December 5th, 2026 &middot; Ceremony at 4:30 PM</span></div>
+      <div class="detail-row"><span class="detail-key">When</span><span class="detail-val">December 5th, 2026 · Ceremony at 4:30 PM</span></div>
       <div class="detail-row"><span class="detail-key">Where</span><span class="detail-val">The Brook • 3480 Benedict Rd, Marengo, OH 43334</span></div>
       <div class="detail-row"><span class="detail-key">Attire</span><span class="detail-val">Semi-Formal—Weather permitting, the ceremony is outdoors, so dress warm. Blankets will be waiting as our gift to you.</span></div>
     </div>
   </div>
 
-  <footer><p class="footer-names">BREI &#10022; HOUSTON</p><p class="footer-date">December 5th &middot; The Brook &middot; Marengo, Ohio</p></footer>
+  <footer><p class="footer-names">BREI ✦ HOUSTON</p><p class="footer-date">December 5th · The Brook · Marengo, Ohio</p></footer>
 </div>
 
 <!-- ════════════ OUR STORY ════════════ -->
 <div class="tab-panel" id="tab-story">
   <div class="story-panel">
-    <span class="section-label" style="text-align:center;display:block;margin-bottom:1rem;">&#10022; How well do you know us &#10022;</span>
+    <span class="section-label" style="text-align:center;display:block;margin-bottom:1rem;">✦ How well do you know us ✦</span>
   </div>
 
   <div class="quiz-wrap">
     <div class="quiz-intro">
-      <p class="quiz-intro-title">Brei &amp; Houston Trivia</p>
-      <p class="quiz-intro-sub">&#10022; five questions &#10022; how well do you know the story &#10022;</p>
+      <p class="quiz-intro-title">Brei & Houston Trivia</p>
+      <p class="quiz-intro-sub">✦ five questions ✦ how well do you know the story ✦</p>
     </div>
 
     <!-- Progress -->
@@ -348,11 +335,11 @@
 
     <!-- Card -->
     <div class="quiz-card" id="qz-card">
-      <span class="quiz-q-num" id="qz-num">&#10022; 01</span>
+      <span class="quiz-q-num" id="qz-num">✦ 01</span>
       <p class="quiz-q-text" id="qz-text"></p>
       <div class="quiz-choices" id="qz-choices"></div>
       <div class="quiz-feedback" id="qz-feedback"></div>
-      <button class="quiz-next" id="qz-next">Next &#10022;</button>
+      <button class="quiz-next" id="qz-next">Next ✦</button>
     </div>
 
     <!-- Results -->
@@ -366,28 +353,28 @@
       </div>
       <p class="quiz-result-msg" id="qz-result-msg"></p>
       <p class="quiz-result-sub" id="qz-result-sub"></p>
-      <button class="quiz-restart" id="qz-restart">&#10022; Try Again &#10022;</button>
+      <button class="quiz-restart" id="qz-restart">✦ Try Again ✦</button>
     </div>
   </div>
-  <footer><p class="footer-names">BREI &#10022; HOUSTON</p><p class="footer-date">December 5th &middot; The Brook &middot; Marengo, Ohio</p></footer>
+  <footer><p class="footer-names">BREI ✦ HOUSTON</p><p class="footer-date">December 5th · The Brook · Marengo, Ohio</p></footer>
 </div>
 
 <!-- ════════════ DETAILS ════════════ -->
 <div class="tab-panel" id="tab-details">
   <div class="details-panel">
 
-    <span class="section-label">&#10022; The day</span>
+    <span class="section-label">✦ The day</span>
     <div class="event-table">
       <div class="event-row"><span class="event-key">Who</span><span class="event-val">Brei'anna J. Coffman & Houston L. Crawford</span></div>
       <div class="event-row"><span class="event-key">What</span><span class="event-val">A woodland wedding ceremony & reception</span></div>
-      <div class="event-row"><span class="event-key">When</span><span class="event-val">December 5th, 2026 &middot; Ceremony at 4:30 PM</span></div>
-      <div class="event-row"><span class="event-key">Where</span><span class="event-val">The Brook • 3480 Benedict Rd, Marengo, OH 43334&middot; Marengo, Ohio</span></div>
+      <div class="event-row"><span class="event-key">When</span><span class="event-val">December 5th, 2026 · Ceremony at 4:30 PM</span></div>
+      <div class="event-row"><span class="event-key">Where</span><span class="event-val">The Brook • 3480 Benedict Rd, Marengo, OH 43334· Marengo, Ohio</span></div>
       <div class="event-row"><span class="event-key">Attire</span><span class="event-val">Semi-Formal—weather permitting, the ceremony is held outside, so dress warm. Blankets will be waiting as a gift.</span></div>
     </div>
 
-    <div class="sep" style="margin-bottom:60px;"><div class="sep-line"></div><span class="sep-glyph">&#10022;</span><div class="sep-line"></div></div>
+    <div class="sep" style="margin-bottom:60px;"><div class="sep-line"></div><span class="sep-glyph">✦</span><div class="sep-line"></div></div>
 
-    <span class="section-label">&#10022; The colors</span>
+    <span class="section-label">✦ The colors</span>
     <div class="palette-grid">
       <div class="swatch" style="background:#0d0d12;"><span class="swatch-name">Midnight</span></div>
       <div class="swatch" style="background:#2d0a45;"><span class="swatch-name">Deep Plum</span></div>
@@ -401,18 +388,141 @@
 
 
   </div>
-  <footer><p class="footer-names">BREI &#10022; HOUSTON</p><p class="footer-date">December 5th &middot; The Brook &middot; Marengo, Ohio</p></footer>
+  <footer><p class="footer-names">BREI ✦ HOUSTON</p><p class="footer-date">December 5th · The Brook · Marengo, Ohio</p></footer>
 </div>
 
 <!-- ════════════ PARTY ════════════ -->
 <div class="tab-panel" id="tab-party">
-  <div class="placeholder-panel">
-    <div class="orb" style="width:300px;height:300px;background:rgba(74,20,96,0.12);top:30%;left:30%;animation-duration:10s;position:absolute;"></div>
-    <p class="placeholder-glyph">&#128367;</p>
-    <p class="placeholder-title">More to come</p>
-    <p class="placeholder-sub">&#10022; details being gathered &#10022;</p>
+  <div class="party-panel">
+
+    <span class="section-label" style="text-align:center;display:block;">✦ Standing with us ✦</span>
+    <h2 class="section-title" style="text-align:center;">The Wedding Party</h2>
+
+    <div class="party-group">
+      <span class="party-group-label">✦ On Brei's side</span>
+      <h3 class="party-group-title">Bridesmaids</h3>
+      <div class="party-grid">
+        <div class="party-card">
+          <span class="party-icon">💐</span>
+          <span class="party-role">Maid of Honor</span>
+          <p class="party-name tbd">Name</p>
+        </div>
+        <div class="party-card">
+          <span class="party-icon">🌸</span>
+          <span class="party-role">Bridesmaid</span>
+          <p class="party-name tbd">Name</p>
+        </div>
+        <div class="party-card">
+          <span class="party-icon">🌸</span>
+          <span class="party-role">Bridesmaid</span>
+          <p class="party-name tbd">Name</p>
+        </div>
+        <div class="party-card">
+          <span class="party-icon">🌸</span>
+          <span class="party-role">Bridesmaid</span>
+          <p class="party-name tbd">Name</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sep" style="margin-bottom:56px;"><div class="sep-line"></div><span class="sep-glyph">✦</span><div class="sep-line"></div></div>
+
+    <div class="party-group">
+      <span class="party-group-label">✦ On Houston's side</span>
+      <h3 class="party-group-title">Groomsmen</h3>
+      <div class="party-grid">
+        <div class="party-card">
+          <span class="party-icon">🎩</span>
+          <span class="party-role">Best Man</span>
+          <p class="party-name tbd">Name</p>
+        </div>
+        <div class="party-card">
+          <span class="party-icon">🥂</span>
+          <span class="party-role">Groomsman</span>
+          <p class="party-name tbd">Name</p>
+        </div>
+        <div class="party-card">
+          <span class="party-icon">🥂</span>
+          <span class="party-role">Groomsman</span>
+          <p class="party-name tbd">Name</p>
+        </div>
+        <div class="party-card">
+          <span class="party-icon">🥂</span>
+          <span class="party-role">Groomsman</span>
+          <p class="party-name tbd">Name</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sep" style="margin-bottom:56px;"><div class="sep-line"></div><span class="sep-glyph">✦</span><div class="sep-line"></div></div>
+
+    <div class="party-group">
+      <span class="party-group-label">✦ Small but mighty</span>
+      <h3 class="party-group-title">The Little Ones</h3>
+      <div class="party-grid">
+        <div class="party-card">
+          <span class="party-icon">🌷</span>
+          <span class="party-role">Flower Girl</span>
+          <p class="party-name tbd">Name</p>
+        </div>
+        <div class="party-card">
+          <span class="party-icon">💍</span>
+          <span class="party-role">Ring Bearer</span>
+          <p class="party-name tbd">Name</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sep" style="margin-bottom:56px;"><div class="sep-line"></div><span class="sep-glyph">✦</span><div class="sep-line"></div></div>
+
+    <div class="party-group">
+      <span class="party-group-label">✦ Held close</span>
+      <h3 class="party-group-title">Family of Honor</h3>
+      <div class="party-grid">
+        <div class="party-card">
+          <span class="party-icon">🌿</span>
+          <span class="party-role">Mother of the Bride</span>
+          <p class="party-name tbd">Name</p>
+        </div>
+        <div class="party-card">
+          <span class="party-icon">🌿</span>
+          <span class="party-role">Father of the Bride</span>
+          <p class="party-name tbd">Name</p>
+        </div>
+        <div class="party-card">
+          <span class="party-icon">🌿</span>
+          <span class="party-role">Mother of the Groom</span>
+          <p class="party-name tbd">Name</p>
+        </div>
+        <div class="party-card">
+          <span class="party-icon">🌿</span>
+          <span class="party-role">Father of the Groom</span>
+          <p class="party-name tbd">Name</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sep" style="margin-bottom:56px;"><div class="sep-line"></div><span class="sep-glyph">✦</span><div class="sep-line"></div></div>
+
+    <div class="party-group">
+      <span class="party-group-label">✦ The ceremony</span>
+      <h3 class="party-group-title">Officiants & Readers</h3>
+      <div class="party-grid">
+        <div class="party-card">
+          <span class="party-icon">📖</span>
+          <span class="party-role">Officiant</span>
+          <p class="party-name tbd">Name</p>
+        </div>
+        <div class="party-card">
+          <span class="party-icon">📖</span>
+          <span class="party-role">Reader</span>
+          <p class="party-name tbd">Name</p>
+        </div>
+      </div>
+    </div>
+
   </div>
-  <footer><p class="footer-names">BREI &#10022; HOUSTON</p><p class="footer-date">December 5th &middot; The Brook &middot; Marengo, Ohio</p></footer>
+  <footer><p class="footer-names">BREI ✦ HOUSTON</p><p class="footer-date">December 5th · The Brook · Marengo, Ohio</p></footer>
 </div>
 
 <!-- ════════════ RSVP ════════════ -->
@@ -420,7 +530,7 @@
   <div class="rsvp-panel">
 
     <div class="rsvp-header">
-      <span class="section-label" style="text-align:center;display:block;">&#10022; You are invited &#10022;</span>
+      <span class="section-label" style="text-align:center;display:block;">✦ You are invited ✦</span>
       <h2 class="rsvp-title">Kindly Reply</h2>
       <p class="rsvp-sub">Please RSVP by <em>October 1st, 2026</em> and include the names and count of everyone in your party.</p>
     </div>
@@ -441,7 +551,7 @@
     </div>
 
   </div>
-  <footer><p class="footer-names">BREI &#10022; HOUSTON</p><p class="footer-date">December 5th &middot; The Brook &middot; Marengo, Ohio</p></footer>
+  <footer><p class="footer-names">BREI ✦ HOUSTON</p><p class="footer-date">December 5th · The Brook · Marengo, Ohio</p></footer>
 </div>
 
 <script>
@@ -483,8 +593,8 @@
       choices: ["Work", "Dating app"],
       correct: [0],
       both: false,
-      rightMsg: "&#10022; You know the origin story &mdash; that's how it all started.",
-      wrongMsg: "&#128580; Not quite &mdash; no swiping required. They found each other at work.",
+      rightMsg: "✦ You know the origin story — that's how it all started.",
+      wrongMsg: "😬 Not quite — no swiping required. They found each other at work.",
       bothMsg: null
     },
     {
@@ -494,31 +604,31 @@
       both: true,
       rightMsg: null,
       wrongMsg: null,
-      bothMsg: "You were right either way &mdash; we said it at the same time. &#10084;"
+      bothMsg: "You were right either way — we said it at the same time. ❤"
     },
     {
       q: "What did they do on their first date?",
       choices: ["Dinner and a movie", "Bowling"],
       correct: [0],
       both: false,
-      rightMsg: "&#10022; Correct &mdash; how clich\u00e9 right?",
-      wrongMsg: "&#127925; Close, but no &mdash; dinner and a movie. Classic, we know."
+      rightMsg: "✦ Correct — how cliché right?",
+      wrongMsg: "🎵 Close, but no — dinner and a movie. Classic, we know."
     },
     {
       q: "How long were they dating before getting engaged?",
       choices: ["1.5 years", "4 months"],
       correct: [1],
       both: false,
-      rightMsg: "Took us long enough to get married, huh? &#128514;",
-      wrongMsg: "&#10022; Four months &mdash; when you know, you know."
+      rightMsg: "Took us long enough to get married, huh? 😂",
+      wrongMsg: "✦ Four months — when you know, you know."
     },
     {
       q: "When\u2019s the wedding date again? (Without looking \uD83D\uDC40)",
       choices: ["December 5th", "November 7th"],
       correct: [0],
       both: false,
-      rightMsg: "Just checking \uD83D\uDE09 You pass.",
-      wrongMsg: "&#128580; December 5th &mdash; you might want to save that date."
+      rightMsg: "Just checking 😉 You pass.",
+      wrongMsg: "😬 December 5th — you might want to save that date."
     }
   ];
 
@@ -531,7 +641,7 @@
     document.getElementById('qz-label').textContent = `Question ${qzIndex + 1} of ${QUESTIONS.length}`;
     document.getElementById('qz-score-live').textContent = `${qzScore} correct`;
     document.getElementById('qz-bar').style.width = `${(qzIndex / QUESTIONS.length) * 100}%`;
-    document.getElementById('qz-num').innerHTML = `&#10022; ${String(qzIndex + 1).padStart(2, '0')}`;
+    document.getElementById('qz-num').innerHTML = `✦ ${String(qzIndex + 1).padStart(2, '0')}`;
     document.getElementById('qz-text').textContent = q.q;
 
     const fb = document.getElementById('qz-feedback');
@@ -580,13 +690,13 @@
     const fb = document.getElementById('qz-feedback');
     if (q.both) {
       fb.className = 'quiz-feedback both-fb show';
-      fb.innerHTML = `<span class="quiz-feedback-icon">&#10022;</span>${q.bothMsg}`;
+      fb.innerHTML = `<span class="quiz-feedback-icon">✦</span>${q.bothMsg}`;
     } else if (isCorrect) {
       fb.className = 'quiz-feedback correct-fb show';
-      fb.innerHTML = `<span class="quiz-feedback-icon">&#10022;</span>${q.rightMsg}`;
+      fb.innerHTML = `<span class="quiz-feedback-icon">✦</span>${q.rightMsg}`;
     } else {
       fb.className = 'quiz-feedback wrong-fb show';
-      fb.innerHTML = `<span class="quiz-feedback-icon">&#8967;</span>${q.wrongMsg}`;
+      fb.innerHTML = `<span class="quiz-feedback-icon">⧧</span>${q.wrongMsg}`;
     }
 
     const next = document.getElementById('qz-next');
@@ -613,12 +723,12 @@
     document.getElementById('qz-score-live').textContent = `${qzScore} correct`;
 
     const msgs = [
-      { msg: "Did you even come to the wedding?", sub: "&#10022; that's okay, love brought you here anyway &#10022;" },
-      { msg: "You know a little something.", sub: "&#10022; pay closer attention at the reception &#10022;" },
-      { msg: "Not bad at all.", sub: "&#10022; you were paying attention &#10022;" },
-      { msg: "You clearly care about these two.", sub: "&#10022; and they feel it &#10022;" },
-      { msg: "You basically wrote the love story.", sub: "&#10022; okay, we see you &#10022;" },
-      { msg: "Are you one of them?", sub: "&#10022; a perfect score &mdash; we love that for you &#10022;" },
+      { msg: "Did you even come to the wedding?", sub: "✦ that's okay, love brought you here anyway ✦" },
+      { msg: "You know a little something.", sub: "✦ pay closer attention at the reception ✦" },
+      { msg: "Not bad at all.", sub: "✦ you were paying attention ✦" },
+      { msg: "You clearly care about these two.", sub: "✦ and they feel it ✦" },
+      { msg: "You basically wrote the love story.", sub: "✦ okay, we see you ✦" },
+      { msg: "Are you one of them?", sub: "✦ a perfect score — we love that for you ✦" },
     ];
     const tier = Math.min(qzScore, 5);
     document.getElementById('qz-result-msg').innerHTML = msgs[tier].msg;
@@ -642,7 +752,7 @@
   qzRender();
 
   // PARTICLES
-  const syms=['&#10022;','&middot;','&#10023;','&#8902;','&#730;'];
+  const syms=['✦','·','✧','∎','˚'];
   for(let i=0;i<20;i++){
     const p=document.createElement('div'); p.className='particle';
     p.textContent=syms[Math.floor(Math.random()*syms.length)];
